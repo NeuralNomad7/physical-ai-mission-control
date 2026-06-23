@@ -18,9 +18,9 @@ This is **v0.1: a frontend-only prototype driven entirely by mock telemetry.** A
 
 ## Preview
 
-![Physical AI Mission Control Dashboard](docs/images/dashboard.png)
+![Physical AI Mission Control Dashboard](docs/images/dashboard.png?v=2)
 
-> The full mission-control console — robot status, mission timeline, policy confidence, safety-gate interlocks, sensor health, operator command, and live telemetry — in a single dense view.
+> The dashboard-only mission-control console — robot status, mission timeline, policy confidence, safety-gate interlocks, sensor health, operator command, and live telemetry — in a single dense view.
 
 ## Why this matters for Physical AI
 
