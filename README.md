@@ -16,6 +16,12 @@
 
 This is **v0.1: a frontend-only prototype driven entirely by mock telemetry.** All data is simulated in the browser, and the live behaviors (streaming events, advancing tasks, jittering confidence, sensor signals) are generated client-side. There is no backend and no real robot — the project is a faithful, interactive *visualization of the operational layer*, designed so it can later be wired to real data sources with minimal UI change.
 
+## Preview
+
+![Physical AI Mission Control Dashboard](docs/images/dashboard.png)
+
+> The full mission-control console — robot status, mission timeline, policy confidence, safety-gate interlocks, sensor health, operator command, and live telemetry — in a single dense view.
+
 ## Why this matters for Physical AI
 
 Physical AI systems need an **operational layer between autonomy models and the physical world.** A vision-language-action policy can produce excellent grasps and trajectories, but on a real robot — around people, near racks, under force and torque limits — *autonomy is supervised, not unattended.* Operators need to see what the robot perceives, how confident its policies are, which safety gates are holding, and what it is doing **right now**, with a hard stop always in reach.

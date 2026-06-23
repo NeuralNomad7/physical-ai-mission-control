@@ -7,22 +7,30 @@
    so panels stay tight instead of stretching to fill the viewport.
 =========================================================================== */
 :root {
-  --void: #070a0f;
+  --void: #050810;
   --panel: #0d131b;
   --panel-2: #111a24;
-  --raised: #16212e;
-  --hairline: #1e2b3a;
-  --hairline-2: #2a3b50;
-  --text: #e2e9f3;
-  --text-2: #93a3b8;
-  --text-3: #607189;
-  --cyan: #2fd6e0;
-  --blue: #4a9cf6;
-  --nominal: #3fcf6b;
-  --caution: #f0b429;
-  --fault: #fb5a4b;
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.025), 0 10px 28px -14px rgba(0, 0, 0, 0.7);
-  --r: 7px;
+  --raised: #18242f;
+  --hairline: #20303f;
+  --hairline-2: #2c4054;
+  --text: #e7eff8;
+  --text-2: #9aabc0;
+  --text-3: #647a93;
+  --cyan: #34e2ec;
+  --blue: #5aa6ff;
+  --nominal: #45d97a;
+  --caution: #f5bd3f;
+  --fault: #ff6354;
+  /* glassmorphism surfaces */
+  --glass: rgba(17, 27, 40, 0.62);
+  --glass-2: rgba(13, 21, 33, 0.40);
+  --glass-brd: rgba(125, 185, 222, 0.16);
+  --glass-edge: rgba(160, 235, 248, 0.22);
+  --glow-cyan: 0 0 16px rgba(52, 226, 236, 0.45);
+  --glow-blue: 0 0 16px rgba(90, 166, 255, 0.40);
+  --blur: 16px;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 22px 50px -26px rgba(0, 0, 0, 0.9);
+  --r: 9px;
   --maxw: 1760px;
 }
 
@@ -33,9 +41,13 @@ body,
 }
 body {
   background:
-    radial-gradient(1200px 620px at 80% -12%, rgba(47, 214, 224, 0.06), transparent 60%),
-    radial-gradient(950px 520px at -10% 110%, rgba(74, 156, 246, 0.045), transparent 55%),
+    radial-gradient(1300px 680px at 78% -14%, rgba(52, 226, 236, 0.10), transparent 60%),
+    radial-gradient(1050px 560px at -12% 112%, rgba(90, 166, 255, 0.075), transparent 55%),
+    radial-gradient(900px 720px at 50% 48%, rgba(40, 120, 200, 0.05), transparent 70%),
+    linear-gradient(rgba(120, 180, 220, 0.022) 1px, transparent 1px) 0 0 / 100% 46px,
+    linear-gradient(90deg, rgba(120, 180, 220, 0.022) 1px, transparent 1px) 0 0 / 46px 100%,
     var(--void);
+  background-attachment: fixed;
   color: var(--text);
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   font-size: 14px;
@@ -65,8 +77,11 @@ body {
 
 /* ---------- top bar ---------- */
 header.topbar {
-  border-bottom: 1px solid var(--hairline);
-  background: linear-gradient(180deg, #0c131b, #0a0f16);
+  border-bottom: 1px solid var(--glass-brd);
+  background: linear-gradient(180deg, rgba(11, 18, 27, 0.78), rgba(8, 13, 20, 0.62));
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 1px 0 rgba(160, 235, 248, 0.06), 0 14px 30px -20px rgba(0, 0, 0, 0.9);
   position: sticky;
   top: 0;
   z-index: 40;
@@ -270,10 +285,12 @@ main.mc {
 
 /* ---------- panel chrome ---------- */
 .panel {
-  background: linear-gradient(180deg, var(--panel), #0b1119);
-  border: 1px solid var(--hairline);
+  background: linear-gradient(180deg, var(--glass), var(--glass-2));
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.18);
+  backdrop-filter: blur(var(--blur)) saturate(1.18);
+  border: 1px solid var(--glass-brd);
   border-radius: var(--r);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow), inset 0 1px 0 var(--glass-edge);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -286,8 +303,9 @@ main.mc {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  height: 150px;
+  pointer-events: none;
+  background: radial-gradient(125% 100% at 50% 0%, rgba(52, 226, 236, 0.07), transparent 70%);
 }
 .p-head {
   display: flex;
@@ -554,6 +572,7 @@ main.mc {
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
+  text-shadow: 0 0 18px rgba(52, 226, 236, 0.5);
 }
 .gauge .read .lbl {
   font-size: 9px;
@@ -783,11 +802,12 @@ select.task:focus {
 .btn:hover { background: #1b2836; }
 .btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(47, 214, 224, 0.18); }
 .btn.primary {
-  background: linear-gradient(180deg, rgba(47, 214, 224, 0.22), rgba(47, 214, 224, 0.08));
-  border-color: rgba(47, 214, 224, 0.45);
-  color: #bff4f8;
+  background: linear-gradient(180deg, rgba(52, 226, 236, 0.24), rgba(52, 226, 236, 0.08));
+  border-color: rgba(52, 226, 236, 0.5);
+  color: #c8f7fb;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  box-shadow: var(--glow-cyan), inset 0 1px 0 rgba(200, 247, 251, 0.18);
 }
 .btn.primary:hover { background: linear-gradient(180deg, rgba(47, 214, 224, 0.32), rgba(47, 214, 224, 0.12)); }
 .btn.primary.armed {
@@ -872,6 +892,338 @@ select.task:focus {
   50% { opacity: 0.4; }
 }
 
+/* ===========================================================================
+   GLASS HUD — content lift + new modules
+   (Robot 3D model, IMU attitude, joint diagnostics, facility map,
+    per-sensor visualizations, natural-language command console)
+=========================================================================== */
+.p-head,
+.p-body { position: relative; z-index: 1; }
+.p-head { border-bottom-color: var(--glass-brd); }
+.cy { color: var(--cyan); }
+
+/* LED bloom halo */
+.led::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, currentColor, transparent 70%);
+  opacity: 0.3;
+  filter: blur(2px);
+  pointer-events: none;
+}
+.led.idle::after { display: none; }
+
+/* ---------- Robot · 3D model ---------- */
+.twin-body {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+.twin-stage {
+  position: relative;
+  border-radius: var(--r);
+  border: 1px solid var(--glass-brd);
+  background:
+    radial-gradient(120% 90% at 50% 16%, rgba(52, 226, 236, 0.10), transparent 60%),
+    linear-gradient(180deg, rgba(8, 16, 24, 0.66), rgba(6, 11, 18, 0.5));
+  overflow: hidden;
+  min-height: 244px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.twin-svg { width: 100%; height: 100%; display: block; }
+.robot-far { opacity: 0.5; }
+.ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twin-ping 3.6s ease-out infinite;
+}
+@keyframes twin-ping {
+  0% { transform: scale(0.55); opacity: 0.5; }
+  70%, 100% { transform: scale(1.06); opacity: 0; }
+}
+.twin-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -38%;
+  height: 38%;
+  background: linear-gradient(180deg, transparent, rgba(52, 226, 236, 0.10) 70%, rgba(52, 226, 236, 0.26));
+  border-bottom: 1px solid rgba(52, 226, 236, 0.45);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: twin-sweep 4.6s ease-in-out infinite;
+}
+@keyframes twin-sweep {
+  0% { top: -38%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.twin-tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-family: "IBM Plex Mono";
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  background: rgba(7, 13, 21, 0.55);
+  border: 1px solid var(--glass-brd);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.twin-tag.tl { top: 9px; left: 9px; }
+.twin-tag.tr { top: 9px; right: 9px; }
+.twin-tag.bl { bottom: 9px; left: 9px; }
+.twin-tag.br { bottom: 9px; right: 9px; }
+
+.twin-side { display: flex; flex-direction: column; gap: 13px; min-width: 0; }
+
+/* IMU attitude / artificial horizon */
+.att { display: flex; align-items: center; gap: 13px; }
+.att-ring {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--glass-brd);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.6), var(--glow-cyan);
+  overflow: hidden;
+  background: #0a131c;
+}
+.att-ring .horizon {
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  top: -50%;
+  bottom: -50%;
+  background: linear-gradient(180deg, #2b5f8f 0%, #2b5f8f 50%, #1d3a2a 50%, #15281d 100%);
+  transition: transform 0.4s ease;
+}
+.att-ring .crosshair { position: absolute; inset: 0; }
+.att-ring .crosshair::before,
+.att-ring .crosshair::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: var(--cyan);
+  box-shadow: var(--glow-cyan);
+}
+.att-ring .crosshair::before { width: 24px; height: 1.5px; transform: translate(-50%, -50%); }
+.att-ring .crosshair::after { width: 1.5px; height: 24px; transform: translate(-50%, -50%); }
+.att-read {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  flex: 1;
+  min-width: 0;
+}
+.att-read .k {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 2px;
+}
+.att-read .v {
+  font-family: "IBM Plex Mono";
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+.att-read .v.cy { color: var(--cyan); }
+
+/* joint diagnostics */
+.jlist { display: flex; flex-direction: column; gap: 6px; }
+.joint {
+  display: grid;
+  grid-template-columns: 24px 64px 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+.jn { font-family: "IBM Plex Mono"; font-size: 10px; color: var(--cyan); letter-spacing: 0.06em; }
+.jname {
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.jbar { height: 4px; border-radius: 2px; background: var(--hairline-2); overflow: hidden; }
+.jbar > i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  box-shadow: var(--glow-cyan);
+}
+.jval { font-family: "IBM Plex Mono"; font-size: 10px; color: var(--text-2); text-align: right; }
+.joint.warn .jbar > i { background: linear-gradient(90deg, var(--caution), #ffd86b); box-shadow: 0 0 10px rgba(245, 189, 63, 0.5); }
+.joint.warn .jn,
+.joint.warn .jval { color: var(--caution); }
+
+/* ---------- Facility map ---------- */
+.nav-map {
+  position: relative;
+  border-radius: var(--r);
+  border: 1px solid var(--glass-brd);
+  background:
+    radial-gradient(100% 100% at 50% 0%, rgba(52, 226, 236, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(8, 16, 24, 0.6), rgba(6, 11, 18, 0.45));
+  overflow: hidden;
+  padding: 6px;
+}
+.nav-map svg { width: 100%; height: auto; display: block; }
+.nav-foot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin-top: 12px;
+  background: var(--glass-brd);
+  border: 1px solid var(--glass-brd);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.nav-foot .cell {
+  background: rgba(13, 21, 33, 0.55);
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.nav-foot .cell .k {
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.nav-foot .cell .v {
+  font-family: "IBM Plex Mono";
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.nav-foot .cell .v.cy { color: var(--cyan); }
+
+/* ---------- per-sensor visualization ---------- */
+.sviz {
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: rgba(8, 14, 22, 0.5);
+  overflow: hidden;
+}
+.sviz svg { width: 100%; height: auto; display: block; }
+.sviz .sw {
+  display: block;
+  padding: 3px 8px 5px;
+  font-family: "IBM Plex Mono";
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+.sviz .sw.warm { color: #ffc78a; }
+
+/* ---------- natural-language command console ---------- */
+.tc-col.nl { flex: 1.25; }
+.nl-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--hairline-2);
+  border-radius: var(--r);
+  background: rgba(8, 14, 22, 0.55);
+  padding: 0 6px 0 11px;
+  transition: 0.15s;
+}
+.nl-input:focus-within { border-color: var(--cyan); box-shadow: var(--glow-cyan); }
+.nl-input .pmt { color: var(--cyan); font-family: "IBM Plex Mono"; font-size: 15px; flex-shrink: 0; }
+.nl-input input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: "IBM Plex Sans";
+  font-size: 12.5px;
+  padding: 11px 0;
+}
+.nl-input input::placeholder { color: var(--text-3); }
+.nl-input .send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  border-radius: 6px;
+  border: 1px solid rgba(52, 226, 236, 0.45);
+  background: linear-gradient(180deg, rgba(52, 226, 236, 0.24), rgba(52, 226, 236, 0.08));
+  color: #c8f7fb;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: 0.14s;
+}
+.nl-input .send:hover { box-shadow: var(--glow-cyan); }
+.nl-input .send[disabled] { opacity: 0.4; cursor: not-allowed; }
+.nl-sug {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+.chips { display: flex; flex-direction: column; gap: 7px; }
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  border: 1px solid var(--hairline-2);
+  background: rgba(17, 26, 36, 0.5);
+  color: var(--text-2);
+  border-radius: var(--r);
+  padding: 8px 10px;
+  font-family: "IBM Plex Sans";
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: 0.14s;
+}
+.chip:hover { border-color: rgba(52, 226, 236, 0.5); color: var(--text); background: rgba(52, 226, 236, 0.07); }
+.chip .ci {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: var(--glow-cyan);
+  flex-shrink: 0;
+}
+.chip .ck {
+  margin-left: auto;
+  font-family: "IBM Plex Mono";
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  border: 1px solid var(--hairline-2);
+  border-radius: 4px;
+  padding: 2px 6px;
+  flex-shrink: 0;
+}
+.chip[disabled] { opacity: 0.45; cursor: not-allowed; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 1200px) {
   main.mc {
@@ -886,6 +1238,8 @@ select.task:focus {
   .spacer { display: none; }
   .row2 { grid-template-columns: 1fr; }
   .pc-wrap, .tc-wrap { flex-direction: column; }
+  .twin-body { grid-template-columns: 1fr; }
+  .nav-foot { grid-template-columns: repeat(2, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }

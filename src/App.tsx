@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import HeaderBar from './components/HeaderBar';
 import RobotStatusCard from './components/RobotStatusCard';
+import Robot3DPanel from './components/Robot3DPanel';
+import FacilityMapPanel from './components/FacilityMapPanel';
 import MissionTimeline from './components/MissionTimeline';
 import PolicyConfidencePanel from './components/PolicyConfidencePanel';
 import SafetyGatesPanel from './components/SafetyGatesPanel';
@@ -162,10 +164,12 @@ export default function App() {
       <main className="mc">
         <div className="col">
           <RobotStatusCard robot={robotStatus} estop={estop} />
+          <FacilityMapPanel estop={estop} />
           <SensorHealthPanel sensors={sensors} />
         </div>
 
         <div className="col">
+          <Robot3DPanel estop={estop} />
           <MissionTimeline tasks={tasks} />
           <div className="row2">
             <PolicyConfidencePanel policies={policyConfidence} estop={estop} log={pushLine} />
